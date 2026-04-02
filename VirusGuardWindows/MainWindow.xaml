@@ -1,0 +1,33 @@
+<Window x:Class="VirusGuardWindows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="VirusGuard Solutions" Height="450" Width="600">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="VirusGuard Antivirus Dashboard" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <!-- Controls -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Select Subscription Plan: " VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox x:Name="PlanSelector" Width="150" Margin="0,0,20,0" SelectedIndex="0">
+                <ComboBoxItem Content="Standard"/>
+                <ComboBoxItem Content="Plus"/>
+                <ComboBoxItem Content="Premium"/>
+            </ComboBox>
+            <Button x:Name="RunScanButton" Content="Run System Scan" Width="120" Padding="5" Click="RunScanButton_Click"/>
+        </StackPanel>
+
+        <!-- Output Console -->
+        <GroupBox Grid.Row="2" Header="System Output">
+            <ScrollViewer>
+                <TextBlock x:Name="OutputTextBlock" TextWrapping="Wrap" FontFamily="Consolas" Background="#F0F0F0" Padding="10"/>
+            </ScrollViewer>
+        </GroupBox>
+    </Grid>
+</Window>

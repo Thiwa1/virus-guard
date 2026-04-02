@@ -1,8 +1,9 @@
 using System;
-using VirusGuard.Models;
-using VirusGuard.Features;
+using System.Text;
+using VirusGuardWindows.Models;
+using VirusGuardWindows.Features;
 
-namespace VirusGuard
+namespace VirusGuardWindows
 {
     public class VirusGuardApp
     {
@@ -26,7 +27,6 @@ namespace VirusGuard
         {
             CurrentPlan = plan;
             InitializeFeatures();
-            Console.WriteLine($"\n--- VirusGuard Initialized with {CurrentPlan} Plan ---");
         }
 
         private void InitializeFeatures()
@@ -51,22 +51,28 @@ namespace VirusGuard
             }
         }
 
-        public void RunSystemScan()
+        public string RunSystemScan()
         {
-            Console.WriteLine("\nStarting System Scan...");
-            Antivirus?.Scan();
-            Optimizer?.Optimize();
+            var sb = new StringBuilder();
+            sb.AppendLine($"--- VirusGuard System Scan ({CurrentPlan} Plan) ---");
+
+            if (Antivirus != null) sb.AppendLine(Antivirus.Scan());
+            if (Optimizer != null) sb.AppendLine(Optimizer.Optimize());
 
             if (CurrentPlan >= Plan.Plus)
             {
-                LeakChecker?.Scan();
+                if (LeakChecker != null) sb.AppendLine(LeakChecker.Scan());
+                if (Webcam != null) sb.AppendLine(Webcam.MonitorAccess());
             }
 
             if (CurrentPlan == Plan.Premium)
             {
-                HomeMonitor?.MonitorNetwork();
+                if (HomeMonitor != null) sb.AppendLine(HomeMonitor.MonitorNetwork());
+                if (ExpertSupport != null) sb.AppendLine(ExpertSupport.RequestSupport());
             }
-            Console.WriteLine("Scan Complete.\n");
+
+            sb.AppendLine("--- Scan Complete ---");
+            return sb.ToString();
         }
     }
 }

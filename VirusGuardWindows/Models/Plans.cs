@@ -1,4 +1,4 @@
-namespace VirusGuard.Models
+namespace VirusGuardWindows.Models
 {
     public enum Plan
     {
